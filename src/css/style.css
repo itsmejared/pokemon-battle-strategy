@@ -15,6 +15,8 @@ body {
   background-color: var(--color-gray-100);
   color: var(--color-dark);
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 img {
@@ -32,7 +34,7 @@ ul {
 }
 
 .page-content {
-  min-height: calc(100vh - 200px);
+  flex: 1;
 }
 
 .container {
@@ -54,7 +56,6 @@ ul {
   width: min(100%, var(--max-width));
   margin: 0 auto;
   padding: var(--space-sm) var(--space-lg);
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -84,6 +85,34 @@ ul {
 
 .menu-toggle {
   display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  width: 24px;
+  height: 3px;
+  background-color: var(--color-dark);
+  border-radius: 999px;
+  transition: all 0.3s ease;
+}
+
+.menu-toggle.active span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
 }
 
 .main-nav ul {
@@ -92,11 +121,39 @@ ul {
 }
 
 .main-nav a {
+  position: relative;
+  padding: 0.5rem 0.75rem;
+  border-radius: 999px;
   font-weight: 600;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
-.main-nav a:hover {
-  color: var(--color-primary);
+.main-nav a:hover,
+.main-nav a:active {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  transform: translateY(-2px);
+}
+
+.main-nav a.active {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.main-nav a.active::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -18px;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  background-image: url("/images/pokeball.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .team-preview {
@@ -166,6 +223,7 @@ ul {
 .site-footer {
   background-color: var(--color-dark);
   color: var(--color-white);
+  margin-top: auto;
 }
 
 .footer-container {
@@ -176,11 +234,24 @@ ul {
 }
 
 .footer-container p {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.9rem;
 }
 
 .footer-container a {
   color: var(--color-accent);
+}
+
+.footer-pokeball {
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 0.35rem;
+  transition: transform 0.3s ease;
+}
+
+.footer-pokeball:hover {
+  transform: rotate(180deg);
 }
 
 /* =====================
@@ -189,20 +260,43 @@ ul {
 
 @media (max-width: 768px) {
   .header-container {
-    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .main-nav {
+    display: none;
+    width: 100%;
+  }
+
+  .main-nav a.active::after {
+    left: -22px;
+    bottom: 50%;
+
+    transform: translateY(50%);
+  }
+
+  .main-nav.open {
+    display: block;
   }
 
   .main-nav ul {
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 1rem;
   }
 
   .hero-logo {
     width: 140px;
   }
 
-  .menu-toggle {
-    display: block;
+  .team-preview {
+    display: none;
   }
 
   .hero h1 {
