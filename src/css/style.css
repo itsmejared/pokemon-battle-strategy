@@ -6,8 +6,182 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: 16px;
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background-color: var(--background-color);
-  color: var(--text-color);
+  background-color: var(--color-gray-100);
+  color: var(--color-dark);
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+.page-content {
+  min-height: calc(100vh - 200px);
+}
+
+.container {
+  width: min(100%, var(--max-width));
+  margin: 0 auto;
+  padding: var(--space-lg);
+}
+
+/* =====================
+   HEADER
+===================== */
+
+.site-header {
+  background-color: var(--color-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.header-container {
+  width: min(100%, var(--max-width));
+  margin: 0 auto;
+  padding: var(--space-sm) var(--space-lg);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+}
+
+.logo {
+  width: 60px;
+}
+
+.main-nav ul {
+  display: flex;
+  gap: var(--space-lg);
+}
+
+.main-nav a {
+  font-weight: 600;
+}
+
+.main-nav a:hover {
+  color: var(--color-primary);
+}
+
+.team-preview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.team-label {
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.team-slots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.team-slot {
+  width: 32px;
+  height: 32px;
+
+  border-radius: 50%;
+  border: 2px dashed var(--color-secondary);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: bold;
+}
+
+/* =====================
+   HERO
+===================== */
+
+.hero {
+  padding: 5rem 1rem;
+}
+
+.hero-content {
+  width: min(100%, 900px);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-logo {
+  width: 220px;
+  margin: 0 auto var(--space-lg);
+}
+
+.hero h1 {
+  margin-bottom: var(--space-md);
+  font-size: 3rem;
+}
+
+.hero p {
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* =====================
+   FOOTER
+===================== */
+
+.site-footer {
+  background-color: var(--color-dark);
+  color: var(--color-white);
+}
+
+.footer-container {
+  width: min(100%, var(--max-width));
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-lg);
+
+  text-align: center;
+}
+
+.footer-container p {
+  margin-bottom: var(--space-sm);
+}
+
+.footer-container a {
+  color: var(--color-accent);
+}
+
+/* =====================
+   MOBILE
+===================== */
+
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+  }
+
+  .main-nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero-logo {
+    width: 140px;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
 }

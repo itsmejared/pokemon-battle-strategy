@@ -1,1 +1,3 @@
-console.log("Home page loaded");
+import { loadHeaderFooter } from "./modules/utils.mjs";
+
+loadHeaderFooter();

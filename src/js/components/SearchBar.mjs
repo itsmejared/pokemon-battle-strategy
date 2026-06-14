@@ -1,4 +1,4 @@
-export default class StatBar {
+export default class SearchBar {
   static render() {
     return "";
   }
