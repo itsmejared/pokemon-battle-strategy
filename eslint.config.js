@@ -13,6 +13,7 @@ export default [
         document: "readonly",
         localStorage: "readonly",
         fetch: "readonly",
+        URLSearchParams: "readonly",
       },
     },
     rules: {
