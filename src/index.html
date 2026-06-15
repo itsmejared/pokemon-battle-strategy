@@ -3,12 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>Pokemon Battle Strategy App</title>
-
     <link rel="icon" href="/images/favicon.ico" />
     <link rel="stylesheet" href="/css/style.css" />
-
     <script type="module" src="/js/main.js"></script>
   </head>
 
@@ -18,69 +15,34 @@
     <main class="page-content">
       <section class="dashboard">
         <div class="container">
-          <div class="dashboard-header">
+          <header class="hero">
             <img src="/images/logo.png" alt="Pokemon Battle Strategy App" class="hero-logo" />
-
-            <h1>Pokemon Battle Strategy App</h1>
-
-            <p>
-              Build stronger Pokemon teams through type coverage analysis, strategic planning, and
-              battle insights.
-            </p>
-          </div>
+            <div class="hero-content">
+              <h1>Pokemon Battle Strategy App</h1>
+              <p>
+                Build stronger Pokemon teams through type coverage analysis, strategic planning, and
+                battle insights.
+              </p>
+            </div>
+          </header>
 
           <div class="dashboard-grid">
-            <section class="dashboard-card teams-overview">
+            <section class="card panel teams-overview">
               <div class="teams-header">
-                <h2>Teams</h2>
-
+                <div>
+                  <h2 class="section-title">Teams</h2>
+                  <p class="teams-help">⭐ Star a team to make it your Main Team.</p>
+                </div>
                 <button class="dashboard-button">Create Team</button>
               </div>
-
-              <p class="teams-help">
-                The starred team is used throughout the application. Select the star on another team
-                to make it your Main Team. Swipe left or right to browse teams.
-              </p>
 
               <div class="teams-carousel">
                 <article class="team-card">
                   <div class="team-card-header">
-                    <button class="team-star active" title="Main Team">★</button>
-
+                    <button class="team-star active">★</button>
                     <h3>Main Team</h3>
                   </div>
 
-                  <div class="team-pokemon-grid">
-                    <div class="pokemon-slot" title="Empty">+</div>
-                    <div class="pokemon-slot" title="Empty">+</div>
-                    <div class="pokemon-slot" title="Empty">+</div>
-                    <div class="pokemon-slot" title="Empty">+</div>
-                    <div class="pokemon-slot" title="Empty">+</div>
-                    <div class="pokemon-slot" title="Empty">+</div>
-                  </div>
-                </article>
-
-                <article class="team-card">
-                  <div class="team-card-header">
-                    <button class="team-star" title="Set as Main Team">☆</button>
-                    <h3>Rain Team</h3>
-                  </div>
-
-                  <div class="team-pokemon-grid">
-                    <div class="pokemon-slot">+</div>
-                    <div class="pokemon-slot">+</div>
-                    <div class="pokemon-slot">+</div>
-                    <div class="pokemon-slot">+</div>
-                    <div class="pokemon-slot">+</div>
-                    <div class="pokemon-slot">+</div>
-                  </div>
-                </article>
-
-                <article class="team-card">
-                  <div class="team-card-header">
-                    <button class="team-star" title="Set as Main Team">☆</button>
-                    <h3>Dragon Team</h3>
-                  </div>
                   <div class="team-pokemon-grid">
                     <div class="pokemon-slot">+</div>
                     <div class="pokemon-slot">+</div>
@@ -93,15 +55,30 @@
               </div>
             </section>
 
-            <section class="dashboard-card">
-              <h2>Team Analysis</h2>
-              <p>Analysis tools will become available once your team is built.</p>
-              <ul class="coming-soon-list">
-                <li>Type Coverage Analysis</li>
-                <li>Weakness Detection</li>
-                <li>Battle Recommendations</li>
-                <li>Role Distribution</li>
-              </ul>
+            <section class="card panel">
+              <h2 class="section-title">Team Analysis</h2>
+              <p class="analysis-help">Build a team to unlock analysis tools.</p>
+              <div class="analysis-grid">
+                <article class="analysis-card">
+                  <h3>Type Coverage</h3>
+                  <p>Coming Soon</p>
+                </article>
+
+                <article class="analysis-card">
+                  <h3>Weakness Detection</h3>
+                  <p>Coming Soon</p>
+                </article>
+
+                <article class="analysis-card">
+                  <h3>Battle Recommendations</h3>
+                  <p>Coming Soon</p>
+                </article>
+
+                <article class="analysis-card">
+                  <h3>Role Distribution</h3>
+                  <p>Coming Soon</p>
+                </article>
+              </div>
             </section>
           </div>
         </div>

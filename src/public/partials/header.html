@@ -1,5 +1,5 @@
 <header class="site-header">
-  <div class="header-container">
+  <div class="container header-container">
     <a href="/" class="logo-link">
       <img src="/images/logo.png" alt="Pokemon Battle Strategy App" class="logo" />
 
@@ -9,7 +9,7 @@
       </span>
     </a>
 
-    <button class="menu-toggle" aria-label="Toggle menu">
+    <button class="menu-toggle" aria-label="Open Navigation">
       <span></span>
       <span></span>
       <span></span>
@@ -17,25 +17,39 @@
 
     <nav class="main-nav">
       <ul>
-        <li><a href="/">Dashboard</a></li>
-        <li><a href="/pokemon/">Pokemon</a></li>
-        <li><a href="/team/">Team</a></li>
-        <li><a href="/comparison/">Comparison</a></li>
-        <li><a href="/cards/">Cards</a></li>
+        <li>
+          <a href="/" class="active"> Dashboard </a>
+        </li>
+
+        <li>
+          <a href="/pokemon/"> Pokemon </a>
+        </li>
+
+        <li>
+          <a href="/team/"> Team </a>
+        </li>
+
+        <li>
+          <a href="/comparison/"> Comparison </a>
+        </li>
+
+        <li>
+          <a href="/cards/"> Cards </a>
+        </li>
       </ul>
     </nav>
 
-    <section class="team-preview">
-      <span class="team-label">Main Team</span>
+    <div class="team-preview">
+      <span class="team-label"> Main Team </span>
 
       <div class="team-slots">
-        <div class="team-slot">+</div>
-        <div class="team-slot">+</div>
-        <div class="team-slot">+</div>
-        <div class="team-slot">+</div>
-        <div class="team-slot">+</div>
-        <div class="team-slot">+</div>
+        <div class="pokemon-slot">+</div>
+        <div class="pokemon-slot">+</div>
+        <div class="pokemon-slot">+</div>
+        <div class="pokemon-slot">+</div>
+        <div class="pokemon-slot">+</div>
+        <div class="pokemon-slot">+</div>
       </div>
-    </section>
+    </div>
   </div>
 </header>
