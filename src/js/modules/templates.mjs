@@ -136,15 +136,29 @@ export function teamRosterTemplate(team) {
         ${slots
           .map(
             (pokemon) => `
-              <div class="pokemon-slot">
+              <div class="pokemon-slot pokemon-roster-slot">
                 ${
                   pokemon
                     ? `
                       <div class="pokemon-roster-card">
-                        <img class="pokemon-roster-sprite" src="${pokemon.sprite}" alt="${capitalize(pokemon.name)}">
+                        <img
+                          class="pokemon-roster-sprite"
+                          src="${pokemon.sprite}"
+                          alt="${capitalize(pokemon.name)}"
+                        >
+
                         <p class="pokemon-roster-name">
-                            ${capitalize(pokemon.name)}
+                          ${capitalize(pokemon.name)}
                         </p>
+
+                        <button
+                          class="pokemon-remove"
+                          data-team-id="${team.id}"
+                          data-pokemon-id="${pokemon.id}"
+                          title="Remove Pokémon"
+                        >
+                          ×
+                        </button>
                       </div>
                     `
                     : "+"
@@ -158,8 +172,14 @@ export function teamRosterTemplate(team) {
   `;
 }
 
-export function renderTeamRoster(parentElement, team) {
+export function renderTeamRoster(parentElement, team, onRemovePokemon) {
   renderWithTemplate(teamRosterTemplate(team), qs(parentElement));
+
+  qsAll(".pokemon-remove").forEach((button) => {
+    button.addEventListener("click", () => {
+      onRemovePokemon(button.dataset.teamId, Number(button.dataset.pokemonId));
+    });
+  });
 }
 
 export function pokemonSearchTemplate() {
@@ -431,6 +451,28 @@ export function renderPokemonDetail(
   );
 
   qs("#addPokemonButton").addEventListener("click", onAddPokemon);
+}
+
+export function mainTeamHeaderTemplate(team) {
+  const slots = [...team.pokemon];
+
+  while (slots.length < 6) {
+    slots.push(null);
+  }
+
+  return slots
+    .map(
+      (pokemon) => `
+        <div class="pokemon-slot">
+          ${pokemon ? `<img src="${pokemon.sprite}" alt="${pokemon.name}">` : "+"}
+        </div>
+      `
+    )
+    .join("");
+}
+
+export function renderMainTeamHeader(parentElement, team) {
+  renderWithTemplate(mainTeamHeaderTemplate(team), qs(parentElement));
 }
 
 export function showToast(message, type = "success") {

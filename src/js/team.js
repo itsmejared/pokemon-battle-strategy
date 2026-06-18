@@ -1,9 +1,15 @@
-import { getParam, loadHeaderFooter, updateUrlParam } from "./modules/utils.mjs";
+import {
+  getParam,
+  loadHeaderFooter,
+  refreshMainTeamHeader,
+  updateUrlParam,
+} from "./modules/utils.mjs";
 import { renderTeamRoster, renderTeamSelector } from "./modules/templates.mjs";
 
 import TeamManager from "./modules/TeamManager.mjs";
 
-loadHeaderFooter();
+await loadHeaderFooter();
+refreshMainTeamHeader();
 
 const teamManager = new TeamManager();
 
@@ -17,7 +23,7 @@ function renderPage(teamId) {
     updateUrlParam("team", team.id);
   }
   renderTeamSelector("#teamSelector", teams, team.id, handleTeamChange, handleSetMainTeam);
-  renderTeamRoster("#teamDetails", team);
+  renderTeamRoster("#teamDetails", team, handleRemovePokemon);
 }
 
 function handleTeamChange(teamId) {
@@ -28,5 +34,13 @@ function handleTeamChange(teamId) {
 function handleSetMainTeam() {
   const teamId = getParam("team");
   teamManager.setMainTeam(teamId);
+  refreshMainTeamHeader();
   renderPage(teamId);
+}
+
+function handleRemovePokemon(teamId, pokemonId) {
+  teamManager.removePokemonFromTeam(teamId, pokemonId);
+  refreshMainTeamHeader();
+  renderPage(teamId);
+  showToast("Pokémon removed from team", "success");
 }

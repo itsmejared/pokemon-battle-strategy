@@ -1,4 +1,4 @@
-import { loadHeaderFooter } from "./modules/utils.mjs";
+import { loadHeaderFooter, refreshMainTeamHeader } from "./modules/utils.mjs";
 import {
   renderPokemonSearch,
   renderPokemonResults,
@@ -11,7 +11,8 @@ const pokemonData = new PokemonData();
 
 let pokemonList = [];
 
-loadHeaderFooter();
+await loadHeaderFooter();
+refreshMainTeamHeader();
 
 pokemonList = await pokemonData.getPokemonList();
 

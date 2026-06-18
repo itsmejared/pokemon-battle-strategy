@@ -1,13 +1,14 @@
-import { loadHeaderFooter } from "./modules/utils.mjs";
+import { loadHeaderFooter, refreshMainTeamHeader } from "./modules/utils.mjs";
 import { renderTeams, showToast } from "./modules/templates.mjs";
 
 import TeamManager from "./modules/TeamManager.mjs";
 
-loadHeaderFooter();
+await loadHeaderFooter();
 
 const teamManager = new TeamManager();
 teamManager.initializeDefaultTeam();
 
+refreshMainTeamHeader();
 renderDashboard();
 
 const createTeamButton = document.querySelector("#createTeamButton");
@@ -32,6 +33,7 @@ function handleMainTeamSelection(teamId) {
   const team = teamManager.setMainTeam(teamId);
   if (!team) return;
   renderDashboard();
+  refreshMainTeamHeader();
   showToast(`"${team.name}" is now your Main Team`, "success");
 }
 

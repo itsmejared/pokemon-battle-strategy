@@ -1,3 +1,6 @@
+import TeamManager from "./TeamManager.mjs";
+import { renderMainTeamHeader } from "./templates.mjs";
+
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
 }
@@ -115,4 +118,13 @@ export function formatStatName(name) {
   };
 
   return map[name] || capitalize(name);
+}
+
+export function refreshMainTeamHeader() {
+  const teamManager = new TeamManager();
+  const mainTeam = teamManager.getMainTeam();
+
+  if (!mainTeam) return;
+
+  renderMainTeamHeader(".team-slots", mainTeam);
 }

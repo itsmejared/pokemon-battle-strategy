@@ -203,14 +203,23 @@ ul {
 ===================== */
 
 .pokemon-slot {
-  width: 64px;
-  height: 64px;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+}
+
+.pokemon-roster-slot {
+  width: 8rem;
+  min-height: 8rem;
+
   border: 2px dashed var(--color-secondary);
   border-radius: var(--radius-sm);
-  font-weight: 700;
+
+  background-color: var(--color-white);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* =====================
@@ -380,7 +389,21 @@ ul {
 .team-preview .pokemon-slot {
   width: 32px;
   height: 32px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 2px dashed var(--color-secondary);
   border-radius: 50%;
+
+  background-color: var(--color-white);
+}
+
+.team-preview .pokemon-slot img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
 }
 
 /* =====================
@@ -656,23 +679,56 @@ ul {
 ===================== */
 
 .pokemon-roster-card {
+  position: relative;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.25rem;
+
+  width: 100%;
+  height: 100%;
+
+  gap: 0.35rem;
+  padding: 0.5rem;
+}
+
+.pokemon-remove {
+  position: absolute;
+
+  top: 0.25rem;
+  right: 0.25rem;
+
+  width: 1.5rem;
+  height: 1.5rem;
+
+  border: none;
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  font-weight: 700;
+
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.pokemon-roster-card:hover .pokemon-remove {
+  opacity: 1;
 }
 
 .pokemon-roster-sprite {
-  width: 48px;
-  height: 48px;
+  width: 64px;
+  height: 64px;
 }
 
 .pokemon-roster-name {
-  font-size: 0.75rem;
+  margin: 0;
+
+  font-size: 0.85rem;
   font-weight: 600;
+
   text-align: center;
-  text-transform: capitalize;
 }
 
 /* =====================

@@ -1,11 +1,11 @@
-import { loadHeaderFooter, getParam, capitalize } from "./modules/utils.mjs";
+import { loadHeaderFooter, getParam, capitalize, refreshMainTeamHeader } from "./modules/utils.mjs";
 import { renderPokemonDetail, showToast } from "./modules/templates.mjs";
 
 import PokemonData from "./modules/PokemonData.mjs";
 import TeamManager from "./modules/TeamManager.mjs";
 
-loadHeaderFooter();
-
+await loadHeaderFooter();
+refreshMainTeamHeader();
 const pokemonData = new PokemonData();
 const teamManager = new TeamManager();
 
@@ -36,8 +36,8 @@ function handleAddPokemon() {
   const teamId = document.querySelector("#teamSelect").value;
   const team = teamManager.getTeams().find((team) => team.id === teamId);
   const added = teamManager.addPokemonToTeam(teamId, pokemon);
-
   if (added) {
+    if (team.isMain) refreshMainTeamHeader();
     showToast(`${capitalize(pokemon.name)} was added to ${team.name}`, "success");
   } else {
     showToast(
