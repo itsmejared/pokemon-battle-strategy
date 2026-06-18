@@ -61,6 +61,10 @@ ul {
   flex: 1;
 }
 
+.hidden {
+  display: none;
+}
+
 /* =====================
    LAYOUT
 ===================== */
@@ -494,7 +498,8 @@ ul {
   background-color: rgb(255 204 0 / 10%);
 }
 
-#teamSelect {
+#teamSelect,
+.pokemon-search-input {
   width: 280px;
   padding: 0.85rem 1rem;
   border: 2px solid var(--color-gray-200);
@@ -559,6 +564,51 @@ ul {
   font-weight: 600;
   text-align: center;
   text-transform: capitalize;
+}
+
+/* =====================
+   Pokemon Search
+===================== */
+
+.pokemon-search {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.pokemon-results {
+  margin-top: var(--space-md);
+}
+
+.pokemon-result {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border: 1px solid var(--color-gray-200);
+  background-color: var(--color-white);
+  cursor: pointer;
+}
+
+.pokemon-result:hover {
+  background-color: var(--color-gray-100);
+}
+
+.popular-pokemon-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.popular-pokemon {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 999px;
+  background-color: var(--color-white);
+  cursor: pointer;
+}
+
+.popular-pokemon:hover {
+  border-color: var(--color-primary);
 }
 
 /* =====================

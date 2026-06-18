@@ -1,4 +1,10 @@
-import { renderListWithTemplate, qs, qsAll, renderWithTemplate } from "./utils.mjs";
+import {
+  renderListWithTemplate,
+  qs,
+  qsAll,
+  renderWithTemplate,
+  formatPokemonName,
+} from "./utils.mjs";
 
 export function teamCardTemplate(team) {
   const slots = [...team.pokemon];
@@ -152,6 +158,68 @@ export function teamRosterTemplate(team) {
 
 export function renderTeamRoster(parentElement, team) {
   renderWithTemplate(teamRosterTemplate(team), qs(parentElement));
+}
+
+export function pokemonSearchTemplate() {
+  return `
+    <div class="pokemon-search">
+      <input
+        id="pokemonSearchInput"
+        class="pokemon-search-input"
+        type="search"
+        placeholder="Search Pokémon..."
+        autocomplete="off"
+      >
+    </div>
+  `;
+}
+
+export function renderPokemonSearch(parentElement, onSearch) {
+  renderWithTemplate(pokemonSearchTemplate(), qs(parentElement));
+
+  qs("#pokemonSearchInput").addEventListener("input", onSearch);
+}
+
+export function pokemonResultTemplate(pokemon) {
+  return `
+    <button
+      class="pokemon-result"
+      data-name="${pokemon.name}"
+    >
+      ${formatPokemonName(pokemon.name)}
+    </button>
+  `;
+}
+
+export function renderPokemonResults(parentElement, pokemon, onPokemonClick) {
+  renderListWithTemplate(pokemonResultTemplate, qs(parentElement), pokemon, "beforeend", true);
+
+  qsAll(".pokemon-result").forEach((button) => {
+    button.addEventListener("click", () => {
+      onPokemonClick(button.dataset.name);
+    });
+  });
+}
+
+export function popularPokemonTemplate(name) {
+  return `
+    <button
+      class="popular-pokemon"
+      data-name="${name}"
+    >
+      ${formatPokemonName(name)}
+    </button>
+  `;
+}
+
+export function renderPopularPokemon(parentElement, pokemon, onPokemonClick) {
+  renderListWithTemplate(popularPokemonTemplate, qs(parentElement), pokemon, "beforeend", true);
+
+  qsAll(".popular-pokemon").forEach((button) => {
+    button.addEventListener("click", () => {
+      onPokemonClick(button.dataset.name);
+    });
+  });
 }
 
 export function showToast(message, type = "success") {

@@ -93,6 +93,9 @@ export function updateUrlParam(key, value) {
   history.replaceState(null, "", `${window.location.pathname}?${params.toString()}`);
 }
 
-export function capitalize(text) {
-  return text.charAt(0).toUpperCase() + text.slice(1);
+export function formatPokemonName(name) {
+  return name
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 }

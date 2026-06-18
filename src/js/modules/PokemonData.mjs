@@ -3,6 +3,7 @@ import { convertToJson } from "./utils.mjs";
 export default class PokemonData {
   constructor() {
     this.baseURL = import.meta.env.VITE_POKEAPI_URL;
+    this.popularPokemon = import.meta.env.VITE_POPULAR_POKEMON;
   }
 
   async getPokemon(nameOrId) {
@@ -10,9 +11,10 @@ export default class PokemonData {
     return await convertToJson(response);
   }
 
-  async getPokemonList(limit = 151, offset = 0) {
+  async getPokemonList(limit = 2000, offset = 0) {
     const response = await fetch(`${this.baseURL}/pokemon?limit=${limit}&offset=${offset}`);
-    return await convertToJson(response);
+    const data = await convertToJson(response);
+    return data.results;
   }
 
   async getPokemonSpecies(nameOrId) {
@@ -31,5 +33,10 @@ export default class PokemonData {
     } catch {
       return null;
     }
+  }
+
+  async getPopularPokemon() {
+    const response = await fetch(this.popularPokemon);
+    return await convertToJson(response);
   }
 }
