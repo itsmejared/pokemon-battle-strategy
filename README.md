@@ -1,143 +1,83 @@
-# Pokemon Battle Strategy App
+# Pokémon Battle Strategy
 
-Pokemon Battle Strategy App is a web application designed to help trainers build stronger Pokémon teams through team management, type coverage analysis, Pokémon comparison tools, and Pokémon Trading Card Game integration.
-
-This project was developed as the final project for WDD 330: Web Frontend Development II.
+A web application that helps Pokémon trainers create and manage battle teams, organize team rosters, and prepare strategies using data from PokéAPI.
 
 ## Live Demo
 
 https://pbs-xlzr.onrender.com
 
-## GitHub Repository
-
-https://github.com/itsmejared/pokemon-battle-strategy
-
 ## Features
 
-### Dashboard
-
-* Team overview
-* Main Team management
-* Saved Teams carousel
-* Team analysis preview
-* Responsive layout
-
-### Pokemon
-
-* Search Pokémon
-* View Pokémon details
-* Add Pokémon to teams
-
-### Team
-
-* Main Team management
-* Saved Teams management
-* Team Builder
-* Team Analysis
-
-### Comparison
-
-* Compare Pokémon statistics and attributes
-
-### Cards
-
-* Browse Pokémon Trading Card Game cards
-* Pokémon TCG API integration
+- Create and manage multiple Pokémon teams
+- Store teams using LocalStorage
+- Select and maintain a Main Team
+- Prevent duplicate team names
+- Delete non-main teams
+- Dynamic team rendering
+- Team roster management
+- Responsive Team Management page
+- URL synchronization for team selection
+- Toast notifications for user feedback
+- Responsive team header with team information
 
 ## Technologies
 
-* HTML5
-* CSS3
-* JavaScript (ES Modules)
-* Vite
-* ESLint
-* Prettier
-* LocalStorage
-* Render
-
-## APIs
-
-### PokeAPI
-
-Used for Pokémon information including:
-
-* Pokémon details
-* Types
-* Stats
-* Abilities
-* Sprites
-
-https://pokeapi.co/
-
-### Pokémon TCG API
-
-Used for card information including:
-
-* Card images
-* Card details
-* Sets
-* Metadata
-
-https://pokemontcg.io/
+- Vite
+- Vanilla JavaScript (ES Modules)
+- CSS
+- PokéAPI
+- LocalStorage
 
 ## Project Structure
 
+```text
 src/
-├── css/
-│   ├── variables.css
-│   └── style.css
-│
 ├── js/
 │   ├── modules/
+│   │   ├── TeamManager.mjs
+│   │   ├── PokemonData.mjs
+│   │   ├── templates.mjs
 │   │   └── utils.mjs
-│   │
 │   ├── main.js
-│   ├── pokemon.js
-│   ├── team.js
-│   ├── comparison.js
-│   └── cards.js
-│
-├── public/
-│   ├── images/
-│   ├── json/
-│   └── partials/
-│       ├── header.html
-│       └── footer.html
-│
-├── index.html
-│
-├── pokemon/
-│   └── index.html
-│
-├── team/
-│   └── index.html
-│
-├── comparison/
-│   └── index.html
-│
-└── cards/
-└── index.html
+│   └── team.js
+├── css/
+├── images/
+└── partials/
+```
 
-## Team Model
+## Architecture
 
-The application uses a team management model based on:
+### TeamManager
 
-* One Main Team
-* Multiple Saved Teams
-* Teams can contain 0-6 Pokémon
-* Teams are persisted using LocalStorage
-* Main Team is identified through a flag and can be reassigned
+Handles team creation, updates, validation, and LocalStorage persistence.
 
-## Learning Objectives Demonstrated
+### PokemonData
 
-* JavaScript Modules
-* API Consumption
-* Responsive Design
-* Dynamic Rendering
-* LocalStorage Persistence
-* Component Reuse
-* Client-Side Routing Structure
-* Modern Frontend Tooling
+Handles communication with PokéAPI.
+
+### templates.mjs
+
+Contains UI templates and rendering functions.
+
+### main.js / team.js
+
+Page controllers that coordinate data and rendering.
+
+## Current Team Rules
+
+- Main Team cannot be deleted
+- Teams can contain up to 6 Pokémon
+- Teams can be created and managed dynamically
+- Team selection is synchronized with the URL
+- The header always displays the Main Team roster
+
+## Future Enhancements
+
+- Pokémon search
+- Add Pokémon to teams
+- Pokémon detail page
+- Battle strategy tools
+- Team analysis and recommendations
 
 ## Author
 

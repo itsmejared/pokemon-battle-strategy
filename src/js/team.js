@@ -1,5 +1,5 @@
 import { getParam, loadHeaderFooter, updateUrlParam } from "./modules/utils.mjs";
-import { renderTeamSelector } from "./modules/templates.mjs";
+import { renderTeamRoster, renderTeamSelector } from "./modules/templates.mjs";
 
 import TeamManager from "./modules/TeamManager.mjs";
 
@@ -17,6 +17,7 @@ function renderPage(teamId) {
     updateUrlParam("team", team.id);
   }
   renderTeamSelector("#teamSelector", teams, team.id, handleTeamChange, handleSetMainTeam);
+  renderTeamRoster("#teamDetails", team);
 }
 
 function handleTeamChange(teamId) {

@@ -114,6 +114,46 @@ export function renderTeamSelector(
     }
   });
 }
+
+export function teamRosterTemplate(team) {
+  const slots = [...team.pokemon];
+
+  while (slots.length < 6) {
+    slots.push(null);
+  }
+
+  return `
+    <section class="team-roster">
+      <div class="team-pokemon-grid">
+        ${slots
+          .map(
+            (pokemon) => `
+              <div class="pokemon-slot">
+                ${
+                  pokemon
+                    ? `
+                      <div class="pokemon-roster-card">
+                        <img class="pokemon-roster-sprite" src="${pokemon.sprite}" alt="${pokemon.name}">
+                        <p class="pokemon-roster-name">
+                            ${pokemon.name}
+                        </p>
+                      </div>
+                    `
+                    : "+"
+                }
+              </div>
+            `
+          )
+          .join("")}
+      </div>
+    </section>
+  `;
+}
+
+export function renderTeamRoster(parentElement, team) {
+  renderWithTemplate(teamRosterTemplate(team), qs(parentElement));
+}
+
 export function showToast(message, type = "success") {
   const toast = document.createElement("div");
 

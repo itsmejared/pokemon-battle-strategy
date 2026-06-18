@@ -538,6 +538,30 @@ ul {
 }
 
 /* =====================
+   Pokemon Roster
+===================== */
+
+.pokemon-roster-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.pokemon-roster-sprite {
+  width: 48px;
+  height: 48px;
+}
+
+.pokemon-roster-name {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+/* =====================
    ANALYSIS
 ===================== */
 
