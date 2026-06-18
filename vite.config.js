@@ -9,6 +9,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, "src/index.html"),
         pokemon: resolve(__dirname, "src/pokemon/index.html"),
+        pokemonDetail: resolve(__dirname, "src/pokemon/detail.html"),
         team: resolve(__dirname, "src/team/index.html"),
         comparison: resolve(__dirname, "src/comparison/index.html"),
         cards: resolve(__dirname, "src/cards/index.html"),
