@@ -1,4 +1,4 @@
-import { renderListWithTemplate, qs, qsAll } from "./utils.mjs";
+import { renderListWithTemplate, qs, qsAll, renderWithTemplate } from "./utils.mjs";
 
 export function teamCardTemplate(team) {
   const slots = [...team.pokemon];
@@ -45,6 +45,75 @@ export function renderTeams(parentElement, teams, onMainTeamClick, onDeleteTeamC
   });
 }
 
+export function teamSelectorTemplate(teams, selectedTeamId) {
+  const selectedTeam = teams.find((team) => team.id === selectedTeamId);
+
+  return `
+    <div class="team-selector-card">
+      <div class="team-selector-grid">
+        <div class="team-selector-control">
+          <div class="team-selector-header">
+            <span class="team-selector-label">
+                Current Team
+            </span>
+            ${
+              selectedTeam.isMain
+                ? `<button class="team-badge team-badge-main" disabled>★ Main Team</button>`
+                : `<button class="team-badge team-badge-action" id="setMainTeamButton">
+                ☆ Set as Main Team
+              </button>`
+            }
+          </div>
+          <select id="teamSelect">
+            ${teams
+              .map(
+                (team) => `
+                  <option
+                    value="${team.id}"
+                    ${team.id === selectedTeamId ? "selected" : ""}
+                  >
+                    ${team.name}
+                  </option>
+                `
+              )
+              .join("")}
+          </select>
+        </div>
+
+        <div class="team-summary">
+          <span class="team-summary-label">
+            Team Size
+          </span>
+          <span class="team-summary-value">
+            ${selectedTeam.pokemon.length} / 6 Pokémon
+          </span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+export function renderTeamSelector(
+  parentElement,
+  teams,
+  selectedTeamId,
+  onTeamChange,
+  onSetMainTeam
+) {
+  renderWithTemplate(teamSelectorTemplate(teams, selectedTeamId), qs(parentElement), null, () => {
+    qs("#teamSelect").addEventListener("change", (event) => {
+      onTeamChange(event.target.value);
+    });
+
+    const mainButton = qs("#setMainTeamButton");
+
+    if (mainButton) {
+      mainButton.addEventListener("click", () => {
+        onSetMainTeam();
+      });
+    }
+  });
+}
 export function showToast(message, type = "success") {
   const toast = document.createElement("div");
 

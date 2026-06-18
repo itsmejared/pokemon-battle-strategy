@@ -3,16 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pokemon Battle Strategy App</title>
+    <title>Team Management</title>
+
     <link rel="icon" href="/images/favicon.ico" />
     <link rel="stylesheet" href="/css/style.css" />
-    <script type="module" src="/js/main.js"></script>
+
+    <script type="module" src="/js/team.js"></script>
   </head>
 
   <body>
     <div id="header"></div>
 
-    <!-- TU MAIN VA AQUÍ -->
+    <main class="page-content">
+      <section class="team-management">
+        <div class="container team-page">
+          <section class="card panel">
+            <div class="team-management-header">
+              <h1>Team Management</h1>
+              <p>Select a team and manage its Pokémon roster.</p>
+            </div>
+
+            <div id="teamSelector"></div>
+          </section>
+
+          <section class="card panel">
+            <div id="teamDetails"></div>
+          </section>
+        </div>
+      </section>
+    </main>
 
     <div id="footer"></div>
   </body>

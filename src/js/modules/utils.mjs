@@ -79,11 +79,18 @@ export function initializeNavigation() {
 
   const currentPath = window.location.pathname;
   qsAll(".main-nav a").forEach((link) => {
+    link.classList.remove("active");
     const href = link.getAttribute("href");
     if (href === currentPath) {
       link.classList.add("active");
     }
   });
+}
+
+export function updateUrlParam(key, value) {
+  const params = new URLSearchParams(window.location.search);
+  params.set(key, value);
+  history.replaceState(null, "", `${window.location.pathname}?${params.toString()}`);
 }
 
 export function capitalize(text) {
