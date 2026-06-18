@@ -6,14 +6,29 @@ import TeamManager from "./modules/TeamManager.mjs";
 
 loadHeaderFooter();
 
-const pokemonName = getParam("pokemon");
 const pokemonData = new PokemonData();
-const pokemon = await pokemonData.getPokemon(pokemonName);
-
 const teamManager = new TeamManager();
+
+const pokemonName = getParam("pokemon");
+
+const pokemon = await pokemonData.getPokemon(pokemonName);
+const species = await pokemonData.getPokemonSpecies(pokemon.name);
+const evolutionChain = await pokemonData.getEvolutionChain(species.evolution_chain.url);
+
+const evolutionNames = getEvolutionNames(evolutionChain.chain);
 const teams = teamManager.getTeams();
 
-renderPokemonDetail("#pokemonDetail", pokemon, teams, handleAddPokemon);
+renderPokemonDetail("#pokemonDetail", pokemon, species, evolutionNames, teams, handleAddPokemon);
+
+function getEvolutionNames(chain) {
+  const evolutions = [];
+  let current = chain;
+  while (current) {
+    evolutions.push(current.species.name);
+    current = current.evolves_to[0];
+  }
+  return evolutions;
+}
 
 function handleAddPokemon() {
   const teamId = document.querySelector("#teamSelect").value;
