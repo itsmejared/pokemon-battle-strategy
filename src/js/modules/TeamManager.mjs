@@ -33,6 +33,8 @@ export default class TeamManager {
 
   addTeam(name) {
     const teams = this.getTeams();
+    const exists = teams.some((team) => team.name.toLowerCase() === name.toLowerCase());
+    if (exists) return null;
     const team = this.createTeam(name, teams.length === 0);
     teams.push(team);
     this.saveTeams(teams);
@@ -56,11 +58,15 @@ export default class TeamManager {
 
   setMainTeam(teamId) {
     const teams = this.getTeams();
+    const currentMainTeam = teams.find((team) => team.isMain);
+    if (currentMainTeam?.id === teamId) {
+      return false;
+    }
     teams.forEach((team) => {
       team.isMain = team.id === teamId;
     });
     this.saveTeams(teams);
-    return teams;
+    return teams.find((team) => team.id === teamId);
   }
 
   addPokemonToTeam(teamId, pokemon) {

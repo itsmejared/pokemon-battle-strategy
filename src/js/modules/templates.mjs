@@ -10,7 +10,7 @@ export function teamCardTemplate(team) {
   return `
     <article class="team-card" data-id="${team.id}">
       <div class="team-card-header">
-        <button class="team-star ${team.isMain ? "active" : ""}">
+        <button class="team-star ${team.isMain ? "active" : ""}" data-team-id="${team.id}">
           ★
         </button>
 
@@ -32,6 +32,31 @@ export function teamCardTemplate(team) {
   `;
 }
 
-export function renderTeams(parentElement, teams) {
+export function renderTeams(parentElement, teams, onMainTeamClick) {
   renderListWithTemplate(teamCardTemplate, qs(parentElement), teams, "beforeend", true);
+  document.querySelectorAll(".team-star").forEach((button) => {
+    button.addEventListener("click", () => {
+      onMainTeamClick(button.dataset.teamId);
+    });
+  });
+}
+
+export function showToast(message, type = "success") {
+  const toast = document.createElement("div");
+
+  toast.className = `toast toast-${type}`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.classList.add("show");
+  }, 10);
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+
+    setTimeout(() => {
+      toast.remove();
+    }, 300);
+  }, 3000);
 }
