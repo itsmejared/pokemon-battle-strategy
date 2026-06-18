@@ -135,8 +135,11 @@ export function teamRosterTemplate(team) {
       <div class="team-pokemon-grid">
         ${slots
           .map(
-            (pokemon) => `
-              <div class="pokemon-slot pokemon-roster-slot">
+            (pokemon, index) => `
+              <div
+                class="pokemon-slot pokemon-roster-slot"
+                data-slot-index="${index}"
+              >
                 ${
                   pokemon
                     ? `
@@ -172,12 +175,19 @@ export function teamRosterTemplate(team) {
   `;
 }
 
-export function renderTeamRoster(parentElement, team, onRemovePokemon) {
+export function renderTeamRoster(parentElement, team, onRemovePokemon, onSlotClick) {
   renderWithTemplate(teamRosterTemplate(team), qs(parentElement));
 
   qsAll(".pokemon-remove").forEach((button) => {
     button.addEventListener("click", () => {
       onRemovePokemon(button.dataset.teamId, Number(button.dataset.pokemonId));
+    });
+  });
+
+  qsAll(".pokemon-roster-slot").forEach((slot) => {
+    slot.addEventListener("click", (event) => {
+      if (event.target.closest(".pokemon-remove")) return;
+      onSlotClick(Number(slot.dataset.slotIndex));
     });
   });
 }
@@ -473,6 +483,64 @@ export function mainTeamHeaderTemplate(team) {
 
 export function renderMainTeamHeader(parentElement, team) {
   renderWithTemplate(mainTeamHeaderTemplate(team), qs(parentElement));
+}
+
+export function pokemonEditorTemplate(slotIndex, pokemon) {
+  return `
+    <div class="pokemon-editor">
+      <h3>${
+        pokemon
+          ? `Replacing ${capitalize(pokemon.name)}`
+          : `Adding Pokémon to Slot ${slotIndex + 1}`
+      }</h3>
+
+      <div class="pokemon-search">
+        <input
+          type="text"
+          id="pokemonSearchInput"
+          placeholder="Search Pokémon..."
+          autocomplete="off"
+        >
+      </div>
+
+      <div id="pokemonSearchResults"></div>
+    </div>
+  `;
+}
+
+export function renderPokemonEditorTemplate(parentElement, slot, pokemon) {
+  renderWithTemplate(pokemonEditorTemplate(slot, pokemon), qs(parentElement));
+}
+
+export function pokemonSearchResultsTemplate(results) {
+  return `
+    <ul class="pokemon-search-results">
+      ${results
+        .map(
+          (pokemon) => `
+            <li>
+              <button
+                class="pokemon-search-result"
+                data-pokemon-name="${pokemon.name}"
+              >
+                ${capitalize(pokemon.name)}
+              </button>
+            </li>
+          `
+        )
+        .join("")}
+    </ul>
+  `;
+}
+
+export function renderPokemonSearchResultsTemplate(parentElement, results, onSelectedPokemon) {
+  renderWithTemplate(pokemonSearchResultsTemplate(results), qs(parentElement));
+
+  qsAll(".pokemon-search-result").forEach((button) => {
+    button.addEventListener("click", () => {
+      onSelectedPokemon(button.dataset.pokemonName);
+    });
+  });
 }
 
 export function showToast(message, type = "success") {

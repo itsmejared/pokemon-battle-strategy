@@ -12,7 +12,6 @@ export default defineConfig({
         pokemonDetail: resolve(__dirname, "src/pokemon/detail.html"),
         team: resolve(__dirname, "src/team/index.html"),
         comparison: resolve(__dirname, "src/comparison/index.html"),
-        cards: resolve(__dirname, "src/cards/index.html"),
       },
     },
   },

@@ -7,6 +7,8 @@
   --color-gray-100: #f5f5f5;
   --color-gray-200: #e5e5e5;
   --color-gray-400: #9ca3af;
+  --color-border: var(--color-gray-200);
+  --color-surface: var(--color-white);
   --max-width: 1200px;
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -631,6 +633,7 @@ ul {
 }
 
 #teamSelect,
+#pokemonSearchInput,
 .pokemon-search-input {
   width: 280px;
   padding: 0.85rem 1rem;
@@ -729,6 +732,66 @@ ul {
   font-weight: 600;
 
   text-align: center;
+}
+
+.team-editor-layout {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 1rem;
+}
+
+#pokemonEditor {
+  border-left: 1px solid var(--color-border);
+  padding-left: 1rem;
+}
+
+.editor-placeholder {
+  text-align: center;
+}
+
+.pokemon-search-results {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.pokemon-search-result {
+  width: 100%;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.pokemon-search-result:hover {
+  transform: translateY(-1px);
+}
+
+.pokemon-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pokemon-preview img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+}
+
+.pokemon-preview h4 {
+  margin: 0.75rem 0;
+  text-transform: capitalize;
+}
+
+.pokemon-roster-slot.selected {
+  border: 3px solid var(--color-primary);
 }
 
 /* =====================
@@ -944,5 +1007,16 @@ ul {
   .pokemon-team-actions button {
     width: 100%;
     min-width: auto;
+  }
+
+  .team-editor-layout {
+    grid-template-columns: 1fr;
+  }
+
+  #pokemonEditor {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid var(--color-border);
+    padding-top: 1rem;
   }
 }

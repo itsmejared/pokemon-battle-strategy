@@ -80,6 +80,22 @@ export default class TeamManager {
     return true;
   }
 
+  replacePokemonInTeam(teamId, slotIndex, pokemon) {
+    const teams = this.getTeams();
+    const team = teams.find((team) => team.id === teamId);
+    if (!team) return false;
+
+    if (slotIndex < 0 || slotIndex >= 6) return false;
+    const exists = team.pokemon.some(
+      (member, index) => member.id === pokemon.id && index !== slotIndex
+    );
+
+    if (exists) return false;
+    team.pokemon[slotIndex] = this.createPokemonSnapshot(pokemon);
+    this.saveTeams(teams);
+    return true;
+  }
+
   removePokemonFromTeam(teamId, pokemonId) {
     const teams = this.getTeams();
     const team = teams.find((team) => team.id === teamId);
