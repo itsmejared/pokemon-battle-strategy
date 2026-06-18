@@ -393,6 +393,18 @@ ul {
   color: var(--color-accent);
 }
 
+.team-delete {
+  margin-left: auto;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.team-delete:hover {
+  opacity: 0.7;
+}
+
 .team-pokemon-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

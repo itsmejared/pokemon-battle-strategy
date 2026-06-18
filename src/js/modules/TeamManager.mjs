@@ -45,7 +45,6 @@ export default class TeamManager {
     const teams = this.getTeams();
     const filteredTeams = teams.filter((team) => team.id !== teamId);
     this.saveTeams(filteredTeams);
-    return filteredTeams;
   }
 
   getTeam(teamId) {

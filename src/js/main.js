@@ -35,6 +35,17 @@ function handleMainTeamSelection(teamId) {
   showToast(`"${team.name}" is now your Main Team`, "success");
 }
 
+function handleDeleteTeam(teamId) {
+  const team = teamManager.getTeam(teamId);
+  if (team.isMain) {
+    showToast("Main Team cannot be deleted", "warning");
+    return;
+  }
+  teamManager.deleteTeam(teamId);
+  renderDashboard();
+  showToast(`Team "${team.name}" deleted`, "success");
+}
+
 function renderDashboard() {
-  renderTeams("#teamsCarousel", teamManager.getTeams(), handleMainTeamSelection);
+  renderTeams("#teamsCarousel", teamManager.getTeams(), handleMainTeamSelection, handleDeleteTeam);
 }

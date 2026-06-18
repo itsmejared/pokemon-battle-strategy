@@ -1,4 +1,4 @@
-import { renderListWithTemplate, qs } from "./utils.mjs";
+import { renderListWithTemplate, qs, qsAll } from "./utils.mjs";
 
 export function teamCardTemplate(team) {
   const slots = [...team.pokemon];
@@ -10,11 +10,9 @@ export function teamCardTemplate(team) {
   return `
     <article class="team-card" data-id="${team.id}">
       <div class="team-card-header">
-        <button class="team-star ${team.isMain ? "active" : ""}" data-team-id="${team.id}">
-          ★
-        </button>
-
+        <button class="team-star ${team.isMain ? "active" : ""}" data-team-id="${team.id}" title="Set as Main Team">★</button>
         <h3>${team.name}</h3>
+        <button class="team-delete" data-team-id="${team.id}" title="Delete Team">🗑️</button>
       </div>
 
       <div class="team-pokemon-grid">
@@ -32,11 +30,17 @@ export function teamCardTemplate(team) {
   `;
 }
 
-export function renderTeams(parentElement, teams, onMainTeamClick) {
+export function renderTeams(parentElement, teams, onMainTeamClick, onDeleteTeamClick) {
   renderListWithTemplate(teamCardTemplate, qs(parentElement), teams, "beforeend", true);
-  document.querySelectorAll(".team-star").forEach((button) => {
+  qsAll(".team-star").forEach((button) => {
     button.addEventListener("click", () => {
       onMainTeamClick(button.dataset.teamId);
+    });
+  });
+
+  qsAll(".team-delete").forEach((button) => {
+    button.addEventListener("click", () => {
+      onDeleteTeamClick(button.dataset.teamId);
     });
   });
 }
