@@ -103,3 +103,16 @@ export function formatPokemonName(name) {
     .map((word) => capitalize(word))
     .join(" ");
 }
+
+export function formatStatName(name) {
+  const map = {
+    hp: "HP",
+    attack: "Attack",
+    defense: "Defense",
+    "special-attack": "Sp. Attack",
+    "special-defense": "Sp. Defense",
+    speed: "Speed",
+  };
+
+  return map[name] || capitalize(name);
+}

@@ -15,10 +15,12 @@ const pokemon = await pokemonData.getPokemon(pokemonName);
 const species = await pokemonData.getPokemonSpecies(pokemon.name);
 const evolutionChain = await pokemonData.getEvolutionChain(species.evolution_chain.url);
 
-const evolutionNames = getEvolutionNames(evolutionChain.chain);
+const evolutionPokemon = await Promise.all(
+  getEvolutionNames(evolutionChain.chain).map((name) => pokemonData.getPokemon(name))
+);
 const teams = teamManager.getTeams();
 
-renderPokemonDetail("#pokemonDetail", pokemon, species, evolutionNames, teams, handleAddPokemon);
+renderPokemonDetail("#pokemonDetail", pokemon, species, evolutionPokemon, teams, handleAddPokemon);
 
 function getEvolutionNames(chain) {
   const evolutions = [];

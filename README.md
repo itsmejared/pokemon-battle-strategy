@@ -1,12 +1,14 @@
 # Pokémon Battle Strategy
 
-A web application that helps Pokémon trainers create and manage battle teams, organize team rosters, and prepare strategies using data from PokéAPI.
+A web application that helps Pokémon trainers build, organize, and manage Pokémon teams while exploring detailed Pokédex information powered by PokéAPI.
 
 ## Live Demo
 
 https://pbs-xlzr.onrender.com
 
 ## Features
+
+### Team Management
 
 - Create and manage multiple Pokémon teams
 - Store teams using LocalStorage
@@ -15,10 +17,32 @@ https://pbs-xlzr.onrender.com
 - Delete non-main teams
 - Dynamic team rendering
 - Team roster management
-- Responsive Team Management page
 - URL synchronization for team selection
 - Toast notifications for user feedback
-- Responsive team header with team information
+- Responsive team header with Main Team roster
+
+### Pokémon Search
+
+- Search all Pokémon from PokéAPI
+- Search begins after 3 characters
+- Search results limited for performance
+- Popular Pokémon quick-access section
+- Navigation to Pokémon Detail pages
+
+### Pokémon Detail
+
+- Dynamic Pokémon detail pages
+- Pokémon sprite, types, height, and weight
+- Base experience information
+- Generation, habitat, and color data
+- Pokédex entries from Species API
+- Ability and hidden ability display
+- Base stat breakdown
+- Evolution chains with sprites
+- Evolution navigation links
+- Team selection and Add To Team functionality
+- Team validation and duplicate prevention
+- Responsive Pokédex-style layout
 
 ## Technologies
 
@@ -27,6 +51,14 @@ https://pbs-xlzr.onrender.com
 - CSS
 - PokéAPI
 - LocalStorage
+
+## APIs Used
+
+### PokéAPI
+
+- Pokémon Endpoint
+- Pokémon Species Endpoint
+- Evolution Chain Endpoint
 
 ## Project Structure
 
@@ -39,7 +71,9 @@ src/
 │   │   ├── templates.mjs
 │   │   └── utils.mjs
 │   ├── main.js
-│   └── team.js
+│   ├── team.js
+│   ├── pokemon.js
+│   └── pokemon-detail.js
 ├── css/
 ├── images/
 └── partials/
@@ -49,35 +83,53 @@ src/
 
 ### TeamManager
 
-Handles team creation, updates, validation, and LocalStorage persistence.
+Responsible for team creation, validation, Pokémon roster management, and LocalStorage persistence.
 
 ### PokemonData
 
-Handles communication with PokéAPI.
+Responsible for all communication with PokéAPI and retrieval of Pokémon, species, and evolution data.
 
 ### templates.mjs
 
-Contains UI templates and rendering functions.
+Contains reusable UI templates and rendering functions.
 
-### main.js / team.js
+### Controllers
 
-Page controllers that coordinate data and rendering.
+- main.js
+- team.js
+- pokemon.js
+- pokemon-detail.js
 
-## Current Team Rules
+Controllers coordinate application state, data retrieval, events, and rendering.
+
+## Team Rules
 
 - Main Team cannot be deleted
-- Teams can contain up to 6 Pokémon
-- Teams can be created and managed dynamically
+- Teams may contain up to 6 Pokémon
+- Duplicate Pokémon are not allowed within the same team
 - Team selection is synchronized with the URL
+- Team data is persisted using LocalStorage
 - The header always displays the Main Team roster
+
+## Learning Objectives Demonstrated
+
+- ES Modules
+- Async/Await
+- Fetch API
+- Third-Party API Integration
+- JSON Processing
+- LocalStorage
+- Event Handling
+- Dynamic Rendering
+- Responsive Design
+- Component-Based Architecture
 
 ## Future Enhancements
 
-- Pokémon search
-- Add Pokémon to teams
-- Pokémon detail page
-- Battle strategy tools
-- Team analysis and recommendations
+- Team analysis tools
+- Battle strategy recommendations
+- Type matchup analysis
+- Team strength evaluation
 
 ## Author
 

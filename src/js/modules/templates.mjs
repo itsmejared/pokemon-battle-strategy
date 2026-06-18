@@ -4,6 +4,7 @@ import {
   qsAll,
   renderWithTemplate,
   formatPokemonName,
+  formatStatName,
   capitalize,
 } from "./utils.mjs";
 
@@ -27,7 +28,7 @@ export function teamCardTemplate(team) {
           .map(
             (pokemon) => `
               <div class="pokemon-slot">
-                ${pokemon ? `<img src="${pokemon.sprite}" alt="${pokemon.name}">` : "+"}
+                ${pokemon ? `<img src="${pokemon.sprite}" alt="${capitalize(pokemon.name)}">` : "+"}
               </div>
             `
           )
@@ -140,9 +141,9 @@ export function teamRosterTemplate(team) {
                   pokemon
                     ? `
                       <div class="pokemon-roster-card">
-                        <img class="pokemon-roster-sprite" src="${pokemon.sprite}" alt="${pokemon.name}">
+                        <img class="pokemon-roster-sprite" src="${pokemon.sprite}" alt="${capitalize(pokemon.name)}">
                         <p class="pokemon-roster-name">
-                            ${pokemon.name}
+                            ${capitalize(pokemon.name)}
                         </p>
                       </div>
                     `
@@ -223,156 +224,195 @@ export function renderPopularPokemon(parentElement, pokemon, onPokemonClick) {
   });
 }
 
-export function pokemonDetailTemplate(pokemon, species, evolutionNames, teams) {
+function pokemonOverviewTemplate(pokemon, species, teams) {
   return `
-    <section class="pokemon-detail">
-      <div class="pokemon-detail-overview">
-        <div class="pokemon-detail-header">
-          <h1>
-            ${capitalize(pokemon.name)}
-            #${pokemon.id}
-          </h1>
+    <div class="pokemon-detail-overview">
+      <div class="pokemon-detail-header">
+        <h1>
+          ${capitalize(pokemon.name)}
+          #${pokemon.id}
+        </h1>
 
-          <img
-            class="pokemon-detail-sprite"
-            src="${pokemon.sprites.front_default}"
-            alt="${pokemon.name}"
-          >
-        </div>
-
-        <div class="pokemon-detail-info">
-          <p>
-            <strong>Type:</strong>
-            ${pokemon.types.map((type) => capitalize(type.type.name)).join(", ")}
-          </p>
-
-          <p>
-            <strong>Height:</strong>
-            ${pokemon.height}
-          </p>
-
-          <p>
-            <strong>Weight:</strong>
-            ${pokemon.weight}
-          </p>
-
-          <p>
-            <strong>Base Experience:</strong>
-            ${pokemon.base_experience}
-          </p>
-
-          <p>
-            <strong>Generation:</strong>
-            ${capitalize(species.generation.name.replace("generation-", ""))}
-          </p>
-
-          <p>
-            <strong>Habitat:</strong>
-            ${species.habitat ? capitalize(species.habitat.name) : "Unknown"}
-          </p>
-
-          <p>
-            <strong>Color:</strong>
-            ${capitalize(species.color.name)}
-          </p>
-
-          <div class="pokemon-team-actions">
-            <label for="teamSelect">
-              Team
-            </label>
-
-            <select id="teamSelect">
-              ${teams
-                .map(
-                  (team) => `
-                    <option
-                      value="${team.id}"
-                      ${team.isMain ? "selected" : ""}
-                    >
-                      ${team.name}
-                    </option>
-                  `
-                )
-                .join("")}
-            </select>
-
-            <button id="addPokemonButton" class="btn btn-primary">
-              Add To Team
-            </button>
-          </div>
-        </div>
+        <img
+          class="pokemon-detail-sprite"
+          src="${pokemon.sprites.front_default}"
+          alt="${capitalize(pokemon.name)}"
+        >
       </div>
 
-      <div class="pokemon-description card panel">
-        <h2>Pokédex Entry</h2>
+      <div class="pokemon-detail-info">
+        <div class="pokemon-team-actions">
+          <select id="teamSelect">
+            ${teams
+              .map(
+                (team) => `
+                  <option
+                    value="${team.id}"
+                    ${team.isMain ? "selected" : ""}
+                  >
+                    ${team.name}
+                  </option>
+                `
+              )
+              .join("")}
+          </select>
+
+          <button id="addPokemonButton" class="btn btn-primary">
+            Add To Team
+          </button>
+        </div>
 
         <p>
-          ${
-            species.flavor_text_entries
-              .find((entry) => entry.language.name === "en")
-              ?.flavor_text.replace(/\f/g, " ") ?? "No description available."
-          }
+          <strong>Type:</strong>
+          ${pokemon.types.map((type) => capitalize(type.type.name)).join(", ")}
+        </p>
+
+        <p>
+          <strong>Height:</strong>
+          ${pokemon.height / 10} m
+        </p>
+
+        <p>
+          <strong>Weight:</strong>
+          ${pokemon.weight / 10} kg
+        </p>
+
+        <p>
+          <strong>Base Experience:</strong>
+          ${pokemon.base_experience}
+        </p>
+
+        <p>
+          <strong>Generation:</strong>
+          ${capitalize(species.generation.name.replace("generation-", ""))}
+        </p>
+
+        <p>
+          <strong>Habitat:</strong>
+          ${species.habitat ? capitalize(species.habitat.name) : "Unknown"}
+        </p>
+
+        <p>
+          <strong>Color:</strong>
+          ${capitalize(species.color.name)}
         </p>
       </div>
+    </div>
+  `;
+}
+
+function pokemonDescriptionTemplate(species) {
+  return `
+    <div class="pokemon-description card panel">
+      <h2>Pokédex Entry</h2>
+
+      <p>
+        ${
+          species.flavor_text_entries
+            .find((entry) => entry.language.name === "en")
+            ?.flavor_text.replace(/\f/g, " ") ?? "No description available."
+        }
+      </p>
+    </div>
+  `;
+}
+
+function pokemonAbilitiesTemplate(pokemon) {
+  return `
+    <div class="pokemon-abilities card panel">
+      <h2>Abilities</h2>
+
+      <ul>
+        ${pokemon.abilities
+          .map(
+            (ability) => `
+              <li>
+                ${capitalize(ability.ability.name)}
+                ${ability.is_hidden ? "(Hidden)" : ""}
+              </li>
+            `
+          )
+          .join("")}
+      </ul>
+    </div>
+  `;
+}
+
+function pokemonStatsTemplate(pokemon) {
+  return `
+    <div class="pokemon-stats card panel">
+      <h2>Stats</h2>
+
+      <ul>
+        ${pokemon.stats
+          .map(
+            (stat) => `
+              <li>
+                <strong>
+                  ${formatStatName(stat.stat.name)}:
+                </strong>
+                ${stat.base_stat}
+              </li>
+            `
+          )
+          .join("")}
+      </ul>
+    </div>
+  `;
+}
+
+function pokemonEvolutionTemplate(evolutionPokemon) {
+  return `
+    <div class="pokemon-evolution card panel">
+      <h2>Evolution Chain</h2>
+
+      <div class="evolution-chain">
+        ${evolutionPokemon
+          .map(
+            (pokemon, index) => `
+              <div class="evolution-item">
+                <a
+                  class="evolution-link"
+                  href="/pokemon/detail.html?pokemon=${pokemon.name}"
+                >
+                  <img
+                    src="${pokemon.sprites.front_default}"
+                    alt="${pokemon.name}"
+                  >
+
+                  <span>
+                    ${capitalize(pokemon.name)}
+                  </span>
+                </a>
+
+                ${
+                  index < evolutionPokemon.length - 1
+                    ? `<span class="evolution-arrow">→</span>`
+                    : ""
+                }
+              </div>
+            `
+          )
+          .join("")}
+      </div>
+    </div>
+  `;
+}
+
+export function pokemonDetailTemplate(pokemon, species, evolutionPokemon, teams) {
+  return `
+    <section class="pokemon-detail">
+      ${pokemonOverviewTemplate(pokemon, species, teams)}
+
+      ${pokemonDescriptionTemplate(species)}
 
       <div class="pokemon-detail-sections">
-        <div class="pokemon-abilities card panel">
-          <h2>Abilities</h2>
+        ${pokemonAbilitiesTemplate(pokemon)}
 
-          <ul>
-            ${pokemon.abilities
-              .map(
-                (ability) => `
-                  <li>
-                    ${capitalize(ability.ability.name)}
-                    ${ability.is_hidden ? "(Hidden)" : ""}
-                  </li>
-                `
-              )
-              .join("")}
-          </ul>
-        </div>
-
-        <div class="pokemon-stats card panel">
-          <h2>Stats</h2>
-
-          <ul>
-            ${pokemon.stats
-              .map(
-                (stat) => `
-                  <li>
-                    <strong>
-                      ${capitalize(stat.stat.name)}:
-                    </strong>
-                    ${stat.base_stat}
-                  </li>
-                `
-              )
-              .join("")}
-          </ul>
-        </div>
+        ${pokemonStatsTemplate(pokemon)}
       </div>
 
-      <div class="pokemon-evolution card panel">
-        <h2>Evolution Chain</h2>
-
-        <ul>
-          ${evolutionNames
-            .map(
-              (name) => `
-                <li>
-                  <a
-                    class="evolution-link"
-                    href="/pokemon/detail.html?pokemon=${name}"
-                  >
-                    ${capitalize(name)}
-                  </a>
-                </li>
-              `
-            )
-            .join("")}
-        </ul>
-      </div>
+      ${pokemonEvolutionTemplate(evolutionPokemon)}
     </section>
   `;
 }
@@ -381,12 +421,12 @@ export function renderPokemonDetail(
   parentElement,
   pokemon,
   species,
-  evolutionNames,
+  evolutionPokemon,
   teams,
   onAddPokemon
 ) {
   renderWithTemplate(
-    pokemonDetailTemplate(pokemon, species, evolutionNames, teams),
+    pokemonDetailTemplate(pokemon, species, evolutionPokemon, teams),
     qs(parentElement)
   );
 

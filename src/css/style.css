@@ -103,19 +103,22 @@ ul {
 
 .pokemon-detail-overview {
   display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: var(--space-lg);
-  align-items: start;
+  grid-template-columns: 60% 40%;
+  gap: var(--space-xl);
+  align-items: center;
 }
 
 .pokemon-detail-header {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
 }
 
 .pokemon-detail-sprite {
-  width: 260px;
-  height: 260px;
-  margin: 0 auto;
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
 }
 
 .pokemon-detail-info {
@@ -124,9 +127,75 @@ ul {
   gap: var(--space-xs);
 }
 
+.pokemon-detail-sections {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
 .pokemon-team-actions {
   display: flex;
   flex-direction: column;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+  align-items: flex-start;
+  order: 999;
+}
+
+.pokemon-team-actions select {
+  min-width: 320px;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: white;
+  font-size: 1rem;
+}
+
+.pokemon-team-actions button {
+  min-width: 320px;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.pokemon-team-actions button:hover {
+  opacity: 0.9;
+}
+
+.evolution-chain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.evolution-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.evolution-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+}
+
+.evolution-link img {
+  width: 96px;
+  height: 96px;
+}
+
+.evolution-arrow {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 /* =====================
@@ -782,5 +851,42 @@ ul {
   .team-selector-grid {
     grid-template-columns: 1fr;
     gap: var(--space-md);
+  }
+
+  .pokemon-detail-overview {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .pokemon-detail-sections {
+    grid-template-columns: 1fr;
+  }
+
+  .pokemon-team-actions button {
+    width: 100%;
+    align-self: stretch;
+  }
+
+  .evolution-chain {
+    flex-direction: column;
+  }
+
+  .evolution-arrow {
+    transform: rotate(90deg);
+  }
+
+  .pokemon-team-actions {
+    width: 100%;
+    align-items: stretch;
+  }
+
+  #teamSelect {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .pokemon-team-actions button {
+    width: 100%;
+    min-width: auto;
   }
 }
