@@ -4,6 +4,7 @@ import {
   qsAll,
   renderWithTemplate,
   formatPokemonName,
+  capitalize,
 } from "./utils.mjs";
 
 export function teamCardTemplate(team) {
@@ -220,6 +221,70 @@ export function renderPopularPokemon(parentElement, pokemon, onPokemonClick) {
       onPokemonClick(button.dataset.name);
     });
   });
+}
+
+export function pokemonDetailTemplate(pokemon, teams) {
+  return `
+    <section class="pokemon-detail">
+      <div class="pokemon-detail-header">
+        <h1>
+          ${capitalize(pokemon.name)}
+          #${pokemon.id}
+        </h1>
+
+        <img
+          class="pokemon-detail-sprite"
+          src="${pokemon.sprites.front_default}"
+          alt="${pokemon.name}"
+        >
+      </div>
+
+      <div class="pokemon-detail-info">
+        <p>
+          <strong>Type:</strong>
+          ${pokemon.types.map((type) => capitalize(type.type.name)).join(", ")}
+        </p>
+
+        <p>
+          <strong>Height:</strong>
+          ${pokemon.height}
+        </p>
+
+        <p>
+          <strong>Weight:</strong>
+          ${pokemon.weight}
+        </p>
+
+        <div class="pokemon-team-actions">
+            <label for="teamSelect">
+                Team
+            </label>
+
+            <select id="teamSelect">
+                ${teams
+                  .map(
+                    (team) => `
+                    <option value="${team.id}" ${team.isMain ? "selected" : ""}>
+                        ${team.name}
+                    </option>
+                    `
+                  )
+                  .join("")}
+            </select>
+
+            <button id="addPokemonButton" class="btn btn-primary">
+                Add To Team
+            </button>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+export function renderPokemonDetail(parentElement, pokemon, teams, onAddPokemon) {
+  renderWithTemplate(pokemonDetailTemplate(pokemon, teams), qs(parentElement));
+
+  qs("#addPokemonButton").addEventListener("click", onAddPokemon);
 }
 
 export function showToast(message, type = "success") {

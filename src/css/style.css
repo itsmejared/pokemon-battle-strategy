@@ -90,6 +90,31 @@ ul {
 }
 
 /* =====================
+   Pokemon Detail
+===================== */
+
+.pokemon-detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.pokemon-detail-header {
+  text-align: center;
+}
+
+.pokemon-detail-sprite {
+  width: 160px;
+  height: 160px;
+}
+
+.pokemon-detail-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* =====================
    REUSABLE
 ===================== */
 

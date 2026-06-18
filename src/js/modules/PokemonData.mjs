@@ -27,14 +27,6 @@ export default class PokemonData {
     return await convertToJson(response);
   }
 
-  async searchPokemon(name) {
-    try {
-      return await this.getPokemon(name);
-    } catch {
-      return null;
-    }
-  }
-
   async getPopularPokemon() {
     const response = await fetch(this.popularPokemon);
     return await convertToJson(response);
